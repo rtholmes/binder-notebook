@@ -5,6 +5,9 @@ FROM alpine:latest
 # cache-busting to force rebuild the image in mybinder.org.
 RUN echo cache-busting-6
 
+# update things
+RUN apk update 
+
 # Install python/pip
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
@@ -12,7 +15,7 @@ RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools
 
 # Install node / npm / yarn
-RUN apk update && apk add --update nodejs npm yarn
+# RUN apk add nodejs npm yarn
 
 #RUN apt-get update &&\
 #  apt-get install -y python3-pip &&\
