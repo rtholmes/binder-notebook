@@ -15,7 +15,7 @@ RUN echo cache-busting-6
 #RUN pip3 install --no-cache --upgrade pip setuptools
 
 # Install node / npm / yarn
-RUN apt-get update && apt-get add nodejs npm yarn
+RUN apt-get update && apt-get install nodejs npm yarn
 
 #RUN apt-get update &&\
 #  apt-get install -y python3-pip &&\
