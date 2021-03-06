@@ -20,7 +20,7 @@ RUN apk update && apk add --update nodejs npm yarn
 #  pip3 install --no-cache-dir -U jupyterlab
 
 # install jupyter
-pip3 install --no-cache-dir -U jupyterlab
+RUN pip3 install --no-cache-dir -U jupyterlab
 
 # Support UTF-8 filename in Python (https://stackoverflow.com/a/31754469)
 ENV LC_CTYPE=C.UTF-8
