@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "d3-node": "^2.2.2",
+    "gpxparser": "^3.0.7",
+    "node-fetch": "^2.6.1",
+    "tslab": "^1.0.15"
+  },
+  "scripts": {
+    "@comment dependencies": [
+      "requires Python 3.8, probably with pyenv",
+      "pip install jupyterlab",
+      "yarn install before yarn prepare"
+    ],
+    "prepare": "./node_modules/tslab/bin/tslab install;",
+    "serve": "jupyter notebook"
+  }
+}
