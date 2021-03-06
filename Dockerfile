@@ -1,43 +1,12 @@
 # Dockerfile to build a prebuilt image to run this example on mybinder.org.
 # FROM node:lts-buster
-FROM alpine:latest
+FROM python:3.8-slim
 
 # cache-busting to force rebuild the image in mybinder.org.
 RUN echo cache-busting-6
 
 # update things
-RUN apk update 
-
-
-# from: https://github.com/drillan/docker-alpine-jupyterlab/blob/master/Dockerfile
-RUN apk add \
-    ca-certificates \ 
-    libstdc++ \
-    python3
-
-RUN apk add --virtual=build_dependencies \
-    cmake \
-    gcc \
-    g++ \
-    make \
-    musl-dev \
-    python3-dev \
-&& ln -s /usr/include/locale.h /usr/include/xlocale.h
-
-RUN python3 -m pip --no-cache-dir install pip -U \
-&& python3 -m pip --no-cache-dir install \
-    jupyter \
-    jupyterlab
-	
-RUN jupyter serverextension enable --py jupyterlab --sys-prefix \
-&& apk del --purge -r build_dependencies \
-&& rm -rf /var/cache/apk/*
-# && mkdir /notebooks
-
-#VOLUME /notebooks
-#ENTRYPOINT /usr/bin/jupyter lab --no-browser --ip=0.0.0.0 --notebook-dir=/notebooks
-#EXPOSE 8888
-
+# RUN apk update 
 
 # Install python/pip
 #ENV PYTHONUNBUFFERED=1
@@ -46,7 +15,7 @@ RUN jupyter serverextension enable --py jupyterlab --sys-prefix \
 #RUN pip3 install --no-cache --upgrade pip setuptools
 
 # Install node / npm / yarn
-# RUN apk add nodejs npm yarn
+RUN apk update && apk add nodejs npm yarn
 
 #RUN apt-get update &&\
 #  apt-get install -y python3-pip &&\
@@ -54,7 +23,7 @@ RUN jupyter serverextension enable --py jupyterlab --sys-prefix \
 #  pip3 install --no-cache-dir -U jupyterlab
 
 # install jupyter
-#RUN pip3 install --no-cache-dir -U jupyterlab
+RUN pip3 install --no-cache-dir -U jupyterlab
 
 # Support UTF-8 filename in Python (https://stackoverflow.com/a/31754469)
 ENV LC_CTYPE=C.UTF-8
