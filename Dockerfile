@@ -1,6 +1,6 @@
 # Dockerfile to build a prebuilt image to run this example on mybinder.org.
 # FROM node:lts-buster
-FROM alpine:lateset
+FROM alpine:latest
 
 # cache-busting to force rebuild the image in mybinder.org.
 RUN echo cache-busting-6
