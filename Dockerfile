@@ -1,29 +1,13 @@
 # Dockerfile to build a prebuilt image to run this example on mybinder.org.
-# FROM node:lts-buster
-FROM python:3.8-slim
+FROM node:lts-buster
 
 # cache-busting to force rebuild the image in mybinder.org.
 RUN echo cache-busting-6
 
-# update things
-# RUN apk update 
-
-# Install python/pip
-#ENV PYTHONUNBUFFERED=1
-#RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-#RUN python3 -m ensurepip
-#RUN pip3 install --no-cache --upgrade pip setuptools
-
-# Install node / npm / yarn
-RUN apt-get update && apt-get install nodejs npm yarn
-
-#RUN apt-get update &&\
-#  apt-get install -y python3-pip &&\
-#  rm -rf /var/lib/apt/lists/* &&\
-#  pip3 install --no-cache-dir -U jupyterlab
-
-# install jupyter
-RUN pip3 install --no-cache-dir -U jupyterlab
+RUN apt-get update &&\
+  apt-get install -y python3-pip &&\
+  rm -rf /var/lib/apt/lists/* &&\
+  pip3 install --no-cache-dir -U jupyterlab
 
 # Support UTF-8 filename in Python (https://stackoverflow.com/a/31754469)
 ENV LC_CTYPE=C.UTF-8
@@ -43,12 +27,9 @@ RUN mkdir ~/.npm-global &&\
   npm config set prefix '~/.npm-global' &&\
   npm install -g tslab &&\
   tslab install
-  
-# clone repo
 RUN git clone --depth 1 https://github.com/rtholmes/binder-notebook.git
 WORKDIR ${HOME}/binder-notebook
 
-# RUN yarn
 RUN yarn install
 
 # Notes:
